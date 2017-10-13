@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, Vue!</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>{{ greeting }}</p>
+
+      <!-- Interpolation does not take place inside html attrs -->
+      <!-- Use bidings for that -->
+      <a href="{{link}}">Broken Link</a>
+
+      <a v-bind:href="link">Google</a>
+
+    </div>
+
+    <script>
+      const vue = new Vue({
+        el: '#app',
+        data: {
+          greeting: 'Hello, Vue!',
+          link: 'http://www.google.com'
+        }
+      });
+    </script>
+  </body>
+</html>

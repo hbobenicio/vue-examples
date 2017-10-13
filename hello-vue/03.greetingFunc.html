@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, Vue!</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>{{ sayHello() }}</p>
+    </div>
+
+    <script>
+      const vue = new Vue({
+        el: '#app',
+        data: {
+          sayHello: function() {
+            return 'Hello, Function!';
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
