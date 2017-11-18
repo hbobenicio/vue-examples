@@ -10,6 +10,7 @@
   <body>
     <div id="app">
       <p>{{ sayHello() }}</p>
+      <p>{{ sayHello2() }}</p>
     </div>
 
     <script>
@@ -18,6 +19,11 @@
         data: {
           sayHello: function() {
             return 'Hello, Function!';
+          }
+        },
+        methods: {
+          sayHello2: function() {
+            return 'Hello, Function 2!';
           }
         }
       });

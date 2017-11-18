@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Todo</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" v-model="todoValue" placeholder="What to do?">
+      <button v-on:click="onClickAddTodo">Add Todo</button>
+
+      <ul>
+        <li v-for="todo in todoList" v-on:click="removeTodo(todo)">{{ todo }}</li>
+      </ul>
+    </div>
+
+    <script>
+      const vue = new Vue({
+        el: '#app',
+        data: {
+          todoList: [],
+          todoValue: ''
+        },
+        methods: {
+          onClickAddTodo: function() {
+            if (this.todoValue == '') {
+              return;
+            }
+
+            this.todoList.push(this.todoValue);
+            this.todoValue = '';
+            console.log(this.todoList);
+          },
+
+          removeTodo: function(todo) {
+            for (var i = 0; i < this.todoList.length; i++) {
+              if (this.todoList[i] === todo) {
+                this.todoList.splice(i, 1);
+                break;
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
