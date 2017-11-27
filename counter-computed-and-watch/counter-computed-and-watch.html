@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Counter</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Counter</h1>
+      <hr>
+
+      <!-- <button type="button" v-on:click="increase">Increase</button>
+      <button type="button" v-on:click="decrease">Decrease</button> -->
+      <button type="button" v-on:click="counter++">Increase</button>
+      <button type="button" v-on:click="counter--">Decrease</button>
+      <button type="button" v-on:click="secondCounter++">Increase Second</button>
+      <p>{{ counter }} | {{ secondCounter }}</p>
+      <p>{{ result() }} | {{ output }}</p>
+
+      <!-- Apenas use a sintaxe de função `result()` se você realmente -->
+      <!-- desejar que a sua propriedade não seja armazenada em cache -->
+      <!-- pois ela sera chamada varias vezes... -->
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          counter: 0,
+          secondCounter: 0
+        },
+        // Computed Properties: Define propriedades que dependem de outras
+        //   (ou seja, são calculadas a partir de outras).
+        //   As funções de atualização só serão executadas apenas quando necessário
+        //   (Observer)
+        computed: {
+          output: function() {
+            console.log('computed');
+            return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+          }
+        },
+        // Watch Properties: Executarão uma função a cada mudança de valor de uma propriedade
+        watch: {
+          // As propriedades deste objeto devem casar com objetos em `data`
+          counter: function(value) {
+            console.log('Atualizando valor para ' + value);
+
+            // Para acessar a Vue Instance dentro de closures, é preciso
+            // salvar uma referência a ela no escopo
+            var vm = this;
+            setTimeout(function(){
+              vm.counter = 0;
+            }, 2000);
+          }
+        },
+        methods: {
+          // increase: function() {
+          //   this.counter++;
+          //   this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+          // },
+          // decrease: function() {
+          //   this.counter--
+          //   this.result = this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+          // }
+          result() {
+            console.log('method');
+            return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
