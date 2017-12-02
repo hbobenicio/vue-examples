@@ -7,6 +7,9 @@
   </head>
   <body>
     <div id="app">
+
+      <!-- With the object syntax, you bind the specified class if the expression
+          evaluates to true -->
       <div class="box"
         @click="attachRed = !attachRed"
         :class="{red: attachRed}">
@@ -19,6 +22,15 @@
         @click="attachBlue = !attachBlue"
         :class="{blue: attachBlue}">
       </div>
+
+      <!-- You can also bind to a property -->
+      <div class="box" :class="color"></div>
+
+      <!-- With the array syntax, you can define multiple classes rules -->
+      <div class="box" :class="[color, {blue: attachBlue}]"></div>
+      <hr>
+
+      <input type="text" v-model="color">
     </div>
 
     <script>
@@ -27,7 +39,8 @@
         data: {
           attachRed: false,
           attachGreen: false,
-          attachBlue: false
+          attachBlue: false,
+          color: 'green'
         }
       })
     </script>

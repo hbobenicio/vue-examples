@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dynamic Styles</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+
+      <div class="box" :style="{'background-color': color}"></div>
+      <div class="box" :style="{backgroundColor: color}"></div>
+      <div class="box" v-bind:style="{backgroundColor: color}"></div>
+      <div class="box" :style="myStyle"></div>
+      <div class="box" :style="[myStyle, {height: widthInPixels}]"></div>
+
+      <hr>
+
+      <label for="colorInput">Color:</label>
+      <input id="colorInput" type="text" v-model="color">
+
+      <label for="widthInput">Width:</label>
+      <input id="widthInput" type="text" v-model="width">
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          color: 'gray',
+          width: 100
+        },
+        computed: {
+          widthInPixels: function() {
+            return this.width + 'px';
+          },
+          myStyle: function() {
+            return {
+              backgroundColor: this.color,
+              width: this.widthInPixels
+            }
+          }
+        }
+      })
+    </script>
+
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: grey;
+        display: inline-block;
+        margin: 10px;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .green {
+        background-color: green;
+      }
+
+      .blue {
+        background-color: blue;
+      }
+    </style>
+  </body>
+</html>
