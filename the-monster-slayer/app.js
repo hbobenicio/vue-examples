@@ -1,3 +1,5 @@
+// import foo from './foo';
+
 var Utils = {
   Converter: {
     numberToPercentStr: function(number) {
@@ -33,10 +35,14 @@ new Vue({
     },
     monsterHealthWidth: function() {
       return Utils.Converter.numberToPercentStr(this.monster.health);
+    },
+    isLogPanelVisible: function() {
+      return this.gameIsOn && this.logMessages.length > 0;
     }
   },
   methods: {
     onStartNewGame: function() {
+      // foo();
       console.log('Starting a new game');
       this.resetGame();
       this.gameIsOn = true;
@@ -46,6 +52,7 @@ new Vue({
     resetGame: function() {
       this.player.health = 100;
       this.monster.health = 100;
+      this.logMessages = [];
     },
 
     gameOver: function() {
@@ -78,16 +85,28 @@ new Vue({
       var monsterHit = Utils.Random.getRandomInt(1, 11);
 
       this.player.health = Math.min(100, this.player.health + playerHeal);
-      this.player.health = Math.max(0, this.monster.health - monsterHit);
+      this.player.health = Math.max(0, this.player.health - monsterHit);
+      this.logHeal(this.player.name, playerHeal);
+      this.logAttack(this.monster.name, this.player.name, monsterHit);
     },
 
     onGiveUp: function() {
       this.gameOver();
     },
 
-    logAttack: function(attacker, enemy, hitValue) {
-      var msg = `${attacker} hits ${enemy} for ${hitValue}`;
+    logMsg: function(msg) {
       this.logMessages.push(msg);
+    },
+
+    logAttack: function(attacker, enemy, hitValue) {
+      var msgContent = `${attacker} hits ${enemy} for ${hitValue}`;
+      var msgType = attacker;
+      this.logMsg({type: msgType, content: msgContent});
+    },
+
+    logHeal: function(entity, healValue) {
+      var msgContent = `${entity} heals for ${healValue}`;
+      this.logMsg({type: 'HEAL', content: msgContent});
     }
 
   }

@@ -53,11 +53,12 @@
       </section>
 
       <!-- Log Panel -->
-      <section class="row log" v-if="gameIsOn">
+      <section class="row log" v-if="isLogPanelVisible">
         <div class="small-12 columns">
           <ul>
             <li v-for="msg in logMessages">
-              {{msg}}
+              <span
+                :class="[{'player-turn': msg.type === 'PLAYER'}, {'monster-turn': msg.type === 'MONSTER'}, {'heal-turn': msg.type === 'HEAL'}]">{{msg.content}}</span>
             </li>
           </ul>
         </div>

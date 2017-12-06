@@ -1,7 +1,7 @@
 {
   "name": "the-monster-slayer",
   "version": "0.1.0-SNAPSHOT",
-  "description": "",
+  "description": "The Monster Slayer is a example game written in Vue.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
