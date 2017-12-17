@@ -22,7 +22,7 @@
           <div class="healthbar">
             <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"
               :style="{'width': playerHealthWidth}">
-
+              {{player.health}}
             </div>
           </div>
         </div>
@@ -32,21 +32,21 @@
           <div class="healthbar">
             <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;"
               :style="{'width': monsterHealthWidth}">
-
+              {{monster.health}}
             </div>
           </div>
         </div>
       </section>
 
       <!-- Game Controls -->
-      <section class="row controls">
+      <section class="row controls" v-if="!gameIsOn">
         <div class="small-12 columns">
           <button id="start-game" @click="onStartNewGame">START NEW GAME</button>
         </div>
       </section>
 
       <!-- Match Controls -->
-      <section class="row controls" v-if="gameIsOn">
+      <section class="row controls" v-else>
         <div class="small-12 columns">
           <button id="attack" @click="onAttack">ATTACK</button>
           <button id="special-attack" @click="onSpecialAttack">SPECIAL ATTACK</button>
