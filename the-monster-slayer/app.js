@@ -15,6 +15,11 @@ var Utils = {
   }
 };
 
+var GameResult = {
+  VICTORY: 'VICTORY',
+  LOST: 'LOST'
+};
+
 new Vue({
   el: '#app',
   data: {
@@ -42,42 +47,78 @@ new Vue({
   },
   methods: {
     onStartNewGame: function() {
-      // foo();
       console.log('Starting a new game');
-      this.resetGame();
-      this.gameIsOn = true;
+      this.startGame();
       console.log('A new game has started');
     },
 
-    resetGame: function() {
+    startGame: function() {
       this.player.health = 100;
       this.monster.health = 100;
       this.logMessages = [];
+      this.gameIsOn = true;
     },
 
-    gameOver: function() {
-      this.player.health = 0;
-      this.gameIsOn = false;
-      alert("You've lost! Better luck next time");
+    checkGameOver: function() {
+      if (this.monster.health <= 0) {
+        this.gameOver(GameResult.VICTORY);
+        return true;
+      } else if (this.player.health <= 0) {
+        this.gameOver(GameResult.LOST);
+        return true;
+      }
+      return false;
+    },
+
+    gameOver: function(gameResult) {
+      switch (gameResult) {
+        case GameResult.VICTORY:
+          this.monster.health = 0;
+          alert('You won! Congratulations');
+          this.gameIsOn = false;
+          return true;
+
+        case GameResult.LOST:
+          this.player.health = 0;
+          alert("You've lost! Better luck next time");
+          this.gameIsOn = false;
+          return true;
+      }
+      return false;
     },
 
     onAttack: function() {
-      var playerHit = Utils.Random.getRandomInt(1, 11);
-      var monsterHit = Utils.Random.getRandomInt(1, 11);
+      this.playerAttack(false);
+      if (this.gameIsOn) {
+        this.monsterAttack();
+      }
+    },
+
+    playerAttack: function(special) {
+      var playerHit = special ? Utils.Random.getRandomInt(20, 31)
+                              : Utils.Random.getRandomInt(1, 11);
 
       this.monster.health = Math.max(0, this.monster.health - playerHit);
-      this.player.health = Math.max(0, this.player.health - monsterHit);
-
-      this.logAttack(this.monster.name, this.player.name, monsterHit);
+      if (this.checkGameOver()) {
+        return;
+      }
       this.logAttack(this.player.name, this.monster.name, playerHit);
     },
 
-    onSpecialAttack: function() {
-      var playerHit = Utils.Random.getRandomInt(20, 31);
+    monsterAttack: function() {
       var monsterHit = Utils.Random.getRandomInt(1, 11);
-
-      this.monster.health = Math.max(0, this.monster.health - playerHit);
       this.player.health = Math.max(0, this.player.health - monsterHit);
+      if (this.checkGameOver()) {
+        return;
+      }
+      this.logAttack(this.monster.name, this.player.name, monsterHit);
+    },
+
+    onSpecialAttack: function() {
+      this.playerAttack(true);
+      if (this.gameIsOn) {
+        this.monsterAttack();
+      }
     },
 
     onHeal: function() {
@@ -91,7 +132,7 @@ new Vue({
     },
 
     onGiveUp: function() {
-      this.gameOver();
+      this.gameOver(GameResult.LOST);
     },
 
     logMsg: function(msg) {
