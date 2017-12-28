@@ -22,21 +22,6 @@
                     <p>Red Box</p>
                   </template>
                 </component>
-
-                <!-- <app-blue>
-                  <h3>Blue Title</h3>
-                  <p>Blue Box</p>
-                </app-blue>
-
-                <app-green>
-                  <h3>Green Title</h3>
-                  <p>Green Box</p>
-                </app-green>
-
-                <app-red>
-                  <h3>Red Title</h3>
-                  <p>Red Box</p>
-                </app-red> -->
             </div>
         </div>
     </div>
