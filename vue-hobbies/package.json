@@ -45,7 +45,7 @@
     "node-notifier": "^5.1.2",
     "chromedriver": "^2.27.2",
     "cross-spawn": "^5.0.1",
-    "nightwatch": "^0.9.12",
+    "nightwatch": "^0.9.19",
     "selenium-server": "^3.0.1",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
